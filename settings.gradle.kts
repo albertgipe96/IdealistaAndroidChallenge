@@ -23,6 +23,7 @@ dependencyResolutionManagement {
 enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 rootProject.name = "IdealistaAndroidChallenge"
 include(":app")
-include(":data")
 include(":domain")
-include(":ui")
+include(":ads:presentation")
+include(":ads:data")
+include(":ads:domain")
