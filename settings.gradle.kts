@@ -23,3 +23,4 @@ rootProject.name = "IdealistaAndroidChallenge"
 include(":app")
 include(":data")
 include(":domain")
+include(":ui")
