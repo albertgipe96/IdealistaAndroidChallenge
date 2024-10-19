@@ -11,6 +11,9 @@ android {
 }
 
 dependencies {
+    implementation(projects.core.domain)
+    implementation(projects.core.data)
+
     implementation(libs.bundles.koin)
 
     implementation(libs.androidx.core.ktx)

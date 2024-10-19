@@ -1,6 +1,7 @@
 package com.development.idealistaandroidchallenge
 
 import android.app.Application
+import com.development.core.data.di.coreDataModule
 import com.development.idealistaandroidchallenge.di.appModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
@@ -14,6 +15,7 @@ class IdealistaApp : Application() {
             androidContext(this@IdealistaApp)
             modules(
                 appModule,
+                coreDataModule
             )
         }
     }

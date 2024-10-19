@@ -1,4 +1,4 @@
-package com.development.core.data.result
+package com.development.core.domain.result
 
 interface Error
 

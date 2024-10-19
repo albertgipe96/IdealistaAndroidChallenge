@@ -1,8 +1,8 @@
-package com.development.core.data.result
+package com.development.core.domain.result
 
 sealed interface Result<out D, out E: Error> {
     data class Success<out D>(val data: D) : Result<D, Nothing>
-    data class Error<out E: com.development.core.data.result.Error>(val error: E) :
+    data class Error<out E: com.development.core.domain.result.Error>(val error: E) :
         Result<Nothing, E>
 }
 

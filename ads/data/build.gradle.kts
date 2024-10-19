@@ -1,5 +1,6 @@
 plugins {
     alias(libs.plugins.idealista.android.library)
+    alias(libs.plugins.idealista.ktor)
 }
 
 android {
@@ -7,6 +8,9 @@ android {
 }
 
 dependencies {
+    implementation(projects.ads.domain)
+    implementation(projects.core.data)
+    implementation(projects.core.domain)
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
