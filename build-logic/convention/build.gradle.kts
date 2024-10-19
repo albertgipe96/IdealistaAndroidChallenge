@@ -26,5 +26,9 @@ gradlePlugin {
             id = "idealista.jvm.library"
             implementationClass = "JvmLibraryConventionPlugin"
         }
+        register("ktor") {
+            id = "idealista.ktor"
+            implementationClass = "KtorConventionPlugin"
+        }
     }
 }
