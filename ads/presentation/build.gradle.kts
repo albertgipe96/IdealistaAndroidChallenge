@@ -36,6 +36,9 @@ dependencies {
     // Coil
     implementation(libs.coil.compose)
 
+    implementation(libs.androidx.viewpager2)
+    //implementation("com.google.android.material:material:1.5.0")
+
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)

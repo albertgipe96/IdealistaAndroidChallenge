@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toolbar
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Observer
 import com.development.ui.databinding.FragmentAdDetailBinding
 import org.koin.androidx.viewmodel.ext.android.activityViewModel
 
@@ -31,7 +32,20 @@ class AdDetailFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         (activity as? AppCompatActivity)?.setSupportActionBar(binding.toolbar)
-        binding.toolbar.title = "Detail"
-        (activity as? AppCompatActivity)?.supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        (activity as? AppCompatActivity)?.supportActionBar?.apply {
+            setDisplayHomeAsUpEnabled(true)
+            setDisplayShowHomeEnabled(true)
+        }
+        binding.toolbar.setNavigationOnClickListener {
+            parentFragmentManager.popBackStack()
+        }
+        viewModel.uiState.observe(viewLifecycleOwner, Observer { uiState ->
+            if (uiState.adData != null) {
+                binding.toolbar.title = uiState.adData.addressInfo.address.capitalize()
+                val images = uiState.adData.multimedia.images.map { it.url }
+                binding.viewPager.adapter = CarouselImageAdapter(images)
+            }
+        })
+
     }
 }

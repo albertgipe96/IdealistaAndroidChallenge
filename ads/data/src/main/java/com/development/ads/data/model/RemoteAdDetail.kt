@@ -11,52 +11,40 @@ import com.development.ads.domain.model.PropertyType
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class RemoteAd(
-    val propertyCode: String,
-    val thumbnail: String,
-    val floor: String,
-    val priceInfo: RemotePriceInfo,
-    val propertyType: String,
-    val operation: String,
-    val size: Double,
-    val exterior: Boolean,
-    val rooms: Int,
-    val bathrooms: Int,
-    val address: String,
-    val province: String,
-    val municipality: String,
-    val district: String,
-    val country: String,
-    val neighborhood: String,
-    val latitude: Double,
-    val longitude: Double,
-    val description: String,
+data class RemoteAdDetail(
+    val adid: Int,
+    val price: Double,
+    val operation: String, //OperationType
+    val propertyType: String, //PropertyType
+    val extendedPropertyType: String, //PropertyType
     val multimedia: RemoteAdMultimedia,
-    val features: RemoteAdFeatures
+    val propertyComment: String,
+    val ubication: RemoteAdUbication,
+    val moreCharacteristics: RemoteMoreCharacteristics
 ) {
     fun toAdData(): AdData {
         return AdData(
-            propertyCode = propertyCode.toInt(),
-            thumbnail = thumbnail,
-            floor = floor.toInt(),
-            priceInEuros = priceInfo.price.amount.toLong(),
+            propertyCode = adid,
+            thumbnail = multimedia.images.first().url,
+            floor = moreCharacteristics.floor.toInt(),
+            priceInEuros = price.toLong(),
             propertyType = mapToPropertyType(propertyType),
             operation = mapToOperationType(operation),
-            sizeInMeters = size.toLong(),
-            isExterior = exterior,
-            roomsNumber = rooms,
-            bathroomsNumber = bathrooms,
+            sizeInMeters = 0,
+            isExterior = moreCharacteristics.exterior,
+            roomsNumber = moreCharacteristics.roomNumber,
+            bathroomsNumber = moreCharacteristics.bathNumber,
             addressInfo = AdAddressInfo(
-                address = address,
-                province = province,
-                municipality = municipality,
-                district = district,
-                country = country,
-                neighborhood = neighborhood,
-                latitude = latitude.toLong(),
-                longitude = longitude.toLong()
+                address = "",
+                province = "",
+                municipality = "",
+                district = "",
+                country = "",
+                neighborhood = "",
+                latitude = ubication.latitude.toLong(),
+                longitude = ubication.longitude.toLong()
             ),
-            description = description,
+            description = propertyComment,
             multimedia = AdMultimedia(
                 images = multimedia.images.map {
                     AdImage(
@@ -66,8 +54,8 @@ data class RemoteAd(
                 }
             ),
             features = AdFeatures(
-                hasAirConditioning = features.hasAirConditioning,
-                hasBoxRoom = features.hasBoxRoom
+                hasAirConditioning = false,
+                hasBoxRoom = false
             )
         )
     }
@@ -104,29 +92,21 @@ data class RemoteAd(
 }
 
 @Serializable
-data class RemotePriceInfo(
-    val price: RemotePrice
+data class RemoteAdUbication(
+    val latitude: Double,
+    val longitude: Double,
 )
 
 @Serializable
-data class RemotePrice(
-    val amount: Double,
-    val currencySuffix: String
-)
-
-@Serializable
-data class RemoteAdMultimedia(
-    val images: List<RemoteAdImage>
-)
-
-@Serializable
-data class RemoteAdImage(
-    val url: String,
-    val tag: String
-)
-
-@Serializable
-data class RemoteAdFeatures(
-    val hasAirConditioning: Boolean,
-    val hasBoxRoom: Boolean
+data class RemoteMoreCharacteristics(
+    val communityCosts: Double,
+    val roomNumber: Int,
+    val bathNumber: Int,
+    val exterior: Boolean,
+    val housingFurnitures: String,
+    val agencyIsABank: Boolean,
+    val energyCertificationType: String,
+    val flatLocation: String,
+    val lift: Boolean,
+    val floor: String
 )

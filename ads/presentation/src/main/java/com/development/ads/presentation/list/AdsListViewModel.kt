@@ -29,8 +29,7 @@ class AdsListViewModel(
 
     private fun fetchAdsList() {
         viewModelScope.launch { withContext(Dispatchers.IO) {
-            val result = adsRepository.fetchAdsData()
-            when (result) {
+            when (val result = adsRepository.fetchAdsData()) {
                 is Result.Error -> uiState.postValue(AdsListUiState(isLoading = false, error = result.error))
                 is Result.Success -> uiState.postValue(AdsListUiState(isLoading = false, adDataList = result.data))
             }
