@@ -16,6 +16,7 @@ internal fun Project.configureBuildTypes(
             commonExtension.run {
                 buildFeatures {
                     buildConfig = true
+                    viewBinding = true
                 }
                 extensions.configure<ApplicationExtension> {
                     buildTypes {
@@ -33,6 +34,7 @@ internal fun Project.configureBuildTypes(
             commonExtension.run {
                 buildFeatures {
                     buildConfig = true
+                    viewBinding = true
                 }
                 extensions.configure<LibraryExtension> {
                     buildTypes {

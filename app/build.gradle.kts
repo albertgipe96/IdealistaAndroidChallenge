@@ -14,7 +14,12 @@ dependencies {
     implementation(projects.core.domain)
     implementation(projects.core.data)
 
+    implementation(projects.ads.presentation)
+    implementation(projects.ads.data)
+
     implementation(libs.bundles.koin)
+
+    implementation(libs.timber)
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)

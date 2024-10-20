@@ -8,7 +8,9 @@ import com.development.ads.domain.model.AdImageTag
 import com.development.ads.domain.model.AdMultimedia
 import com.development.ads.domain.model.OperationType
 import com.development.ads.domain.model.PropertyType
+import kotlinx.serialization.Serializable
 
+@Serializable
 data class RemoteAd(
     val propertyCode: String,
     val thumbnail: String,
@@ -16,7 +18,7 @@ data class RemoteAd(
     val priceInfo: RemotePriceInfo,
     val propertyType: String,
     val operation: String,
-    val size: Long,
+    val size: Double,
     val exterior: Boolean,
     val rooms: Int,
     val bathrooms: Int,
@@ -26,8 +28,8 @@ data class RemoteAd(
     val district: String,
     val country: String,
     val neighborhood: String,
-    val latitude: Long,
-    val longitude: Long,
+    val latitude: Double,
+    val longitude: Double,
     val description: String,
     val multimedia: RemoteAdMultimedia,
     val features: RemoteAdFeatures
@@ -37,10 +39,10 @@ data class RemoteAd(
             propertyCode = propertyCode.toInt(),
             thumbnail = thumbnail,
             floor = floor.toInt(),
-            priceInEuros = priceInfo.price.amount,
+            priceInEuros = priceInfo.price.amount.toLong(),
             propertyType = mapToPropertyType(propertyType),
             operation = mapToOperationType(operation),
-            sizeInMeters = size,
+            sizeInMeters = size.toLong(),
             isExterior = exterior,
             roomsNumber = rooms,
             bathroomsNumber = bathrooms,
@@ -51,8 +53,8 @@ data class RemoteAd(
                 district = district,
                 country = country,
                 neighborhood = neighborhood,
-                latitude = latitude,
-                longitude = longitude
+                latitude = latitude.toLong(),
+                longitude = longitude.toLong()
             ),
             description = description,
             multimedia = AdMultimedia(
@@ -101,24 +103,29 @@ data class RemoteAd(
     }
 }
 
+@Serializable
 data class RemotePriceInfo(
     val price: RemotePrice
 )
 
+@Serializable
 data class RemotePrice(
-    val amount: Long,
+    val amount: Double,
     val currencySuffix: String
 )
 
+@Serializable
 data class RemoteAdMultimedia(
     val images: List<RemoteAdImage>
 )
 
+@Serializable
 data class RemoteAdImage(
     val url: String,
     val tag: String
 )
 
+@Serializable
 data class RemoteAdFeatures(
     val hasAirConditioning: Boolean,
     val hasBoxRoom: Boolean
