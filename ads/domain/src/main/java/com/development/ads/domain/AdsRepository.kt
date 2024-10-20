@@ -6,4 +6,5 @@ import com.development.core.domain.result.Result
 
 interface AdsRepository {
     suspend fun fetchAdsData(): Result<List<AdData>, DataError.Network>
+    suspend fun fetchAdDetail(): Result<AdData, DataError.Network>
 }

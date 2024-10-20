@@ -12,7 +12,7 @@ import java.nio.channels.UnresolvedAddressException
 import kotlin.coroutines.cancellation.CancellationException
 import com.development.core.domain.result.Result
 
-private const val BASE_URL = "https://idealista.github.io"
+private const val BASE_URL = "https://idealista.github.io/android-challenge"
 
 fun constructRoute(route: String): String {
     return when {

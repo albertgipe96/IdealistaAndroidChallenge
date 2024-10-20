@@ -1,14 +1,15 @@
 package com.development.ads.presentation.list
 
-import androidx.fragment.app.viewModels
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.replace
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.development.ui.R
+import com.development.ads.domain.model.AdData
+import com.development.ads.presentation.detail.AdDetailFragment
 import com.development.ui.databinding.FragmentAdsListBinding
 import org.koin.androidx.viewmodel.ext.android.activityViewModel
 
@@ -21,10 +22,6 @@ class AdsListFragment : Fragment() {
     private val viewModel: AdsListViewModel by activityViewModel()
 
     private lateinit var binding: FragmentAdsListBinding
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -41,7 +38,19 @@ class AdsListFragment : Fragment() {
             binding.progressIndicator.visibility = if (uiState.isLoading) View.VISIBLE else View.GONE
             if (uiState.adDataList.isNotEmpty()) {
                 binding.recyclerView.visibility = View.VISIBLE
-                binding.recyclerView.adapter = RecyclerViewAdapter(uiState.adDataList.map { it.addressInfo.address })
+                binding.recyclerView.adapter = RecyclerViewAdapter(
+                    itemList = uiState.adDataList,
+                    listener = object : OnItemClickListener {
+                        override fun onItemClick(item: AdData) {
+                            if (savedInstanceState == null) {
+                                parentFragmentManager.beginTransaction()
+                                    .replace(id, AdDetailFragment.newInstance())
+                                    .addToBackStack(null)
+                                    .commit()
+                            }
+                        }
+                    }
+                )
             }
             if (uiState.error != null) {
                 binding.error.visibility = View.VISIBLE

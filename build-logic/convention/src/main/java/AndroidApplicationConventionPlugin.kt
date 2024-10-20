@@ -1,5 +1,6 @@
 import com.android.build.api.dsl.ApplicationExtension
 import com.development.convention.ExtensionType
+import com.development.convention.configureAndroidCompose
 import com.development.convention.configureBuildTypes
 import com.development.convention.configureKotlinAndroid
 import com.development.convention.libs
@@ -23,6 +24,7 @@ class AndroidApplicationConventionPlugin : Plugin<Project> {
                 }
                 configureKotlinAndroid(this)
                 configureBuildTypes(this, ExtensionType.APPLICATION)
+                configureAndroidCompose(this)
             }
         }
     }

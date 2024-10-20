@@ -8,6 +8,7 @@ import com.development.core.domain.result.DataError
 import com.development.core.domain.result.Result
 import com.development.core.domain.result.map
 import io.ktor.client.HttpClient
+import io.ktor.client.request.get
 
 class KtorAdsRepository(
     private val httpClient: HttpClient
@@ -15,8 +16,13 @@ class KtorAdsRepository(
 
     override suspend fun fetchAdsData(): Result<List<AdData>, DataError.Network> {
         return httpClient.get<List<RemoteAd>>(
-            route = "/android-challenge/list.json"
+            route = "list.json"
         ).map { it.map { it.toAdData() } }
     }
 
+    override suspend fun fetchAdDetail(): Result<AdData, DataError.Network> {
+        return httpClient.get<RemoteAd>(
+            route = "detail.json"
+        ).map { it.toAdData() }
+    }
 }

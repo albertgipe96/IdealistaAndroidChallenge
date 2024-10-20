@@ -1,5 +1,6 @@
 import com.android.build.api.dsl.LibraryExtension
 import com.development.convention.ExtensionType
+import com.development.convention.configureAndroidCompose
 import com.development.convention.configureBuildTypes
 import com.development.convention.configureKotlinAndroid
 import org.gradle.api.Plugin
@@ -19,6 +20,8 @@ class AndroidLibraryConventionPlugin : Plugin<Project> {
                 configureKotlinAndroid(this)
 
                 configureBuildTypes(this, ExtensionType.LIBRARY)
+
+                configureAndroidCompose(this)
 
                 defaultConfig {
                     testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
