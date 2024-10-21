@@ -1,35 +1,36 @@
 package com.development.ads.domain.model
 
 data class AdData(
-    val propertyCode: Int,
+    val adId: Int,
     val thumbnail: String,
-    val floor: Int,
-    val priceInEuros: Long,
-    val propertyType: PropertyType,
-    val operation: OperationType,
-    val sizeInMeters: Long,
-    val isExterior: Boolean,
-    val roomsNumber: Int,
-    val bathroomsNumber: Int,
-    val addressInfo: AdAddressInfo,
-    val description: String,
-    val multimedia: AdMultimedia,
-    val features: AdFeatures
+    val adSpecs: AdSpecs,
+    val propertySpecs: PropertySpecs,
+    val images: List<AdImage>,
+    val favoritedInfo: FavoritedInfo = FavoritedInfo()
 )
 
-data class AdAddressInfo(
-    val address: String,
-    val province: String,
+data class AdSpecs(
+    val price: Long,
+    val operation: OperationType
+)
+
+data class PropertySpecs(
+    val fullAddress: String,
     val municipality: String,
-    val district: String,
-    val country: String, //Locale,
-    val neighborhood: String,
+    val country: String,
     val latitude: Long,
-    val longitude: Long
+    val longitude: Long,
+    val characteristics: PropertyCharacteristics
 )
 
-data class AdMultimedia(
-    val images: List<AdImage>
+data class PropertyCharacteristics(
+    val propertyType: PropertyType? = null,
+    val hasAirConditioning: Boolean? = null,
+    val hasBoxRoom: Boolean? = null,
+    val communityCosts: Double? = null,
+    val roomNumber: Int? = null,
+    val bathNumber: Int? = null,
+    val exterior: Boolean? = null
 )
 
 data class AdImage(
@@ -37,7 +38,7 @@ data class AdImage(
     val tag: AdImageTag
 )
 
-data class AdFeatures(
-    val hasAirConditioning: Boolean,
-    val hasBoxRoom: Boolean
+data class FavoritedInfo(
+    val isFavorited: Boolean = false,
+    val date: Long? = null
 )

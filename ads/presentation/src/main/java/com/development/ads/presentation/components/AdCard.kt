@@ -1,11 +1,8 @@
 package com.development.ads.presentation.components
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -50,7 +47,7 @@ fun AdCard(
                     contentDescription = null,
                     contentScale = ContentScale.Crop
                 )
-                if (adData.operation != OperationType.UNKNOWN) {
+                if (adData.adSpecs.operation != OperationType.UNKNOWN) {
                     Box(
                         modifier = Modifier
                             .padding(8.dp)
@@ -59,7 +56,7 @@ fun AdCard(
                             .align(Alignment.TopStart)
                     ) {
                         Text(
-                            text = adData.operation.toString(),
+                            text = adData.adSpecs.operation.toString(),
                             fontWeight = FontWeight.Bold,
                             color = Color.White
                         )
@@ -69,14 +66,14 @@ fun AdCard(
             Column(modifier = Modifier.fillMaxWidth().padding(16.dp)) {
                 Text(
                     modifier = Modifier.fillMaxWidth(),
-                    text = "${adData.priceInEuros}€",
+                    text = "${adData.adSpecs.price}€",
                     fontSize = 36.sp,
                     fontWeight = FontWeight.Bold,
                     textAlign = TextAlign.End
                 )
                 Text(
                     modifier = Modifier.fillMaxWidth(),
-                    text = "${adData.addressInfo.address}, ${adData.addressInfo.municipality}",
+                    text = "${adData.propertySpecs.fullAddress}, ${adData.propertySpecs.municipality}",
                     fontSize = 24.sp,
                     textAlign = TextAlign.Start
                 )

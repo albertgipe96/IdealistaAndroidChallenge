@@ -1,12 +1,12 @@
 package com.development.ads.data.model
 
-import com.development.ads.domain.model.AdAddressInfo
 import com.development.ads.domain.model.AdData
-import com.development.ads.domain.model.AdFeatures
 import com.development.ads.domain.model.AdImage
 import com.development.ads.domain.model.AdImageTag
-import com.development.ads.domain.model.AdMultimedia
+import com.development.ads.domain.model.AdSpecs
 import com.development.ads.domain.model.OperationType
+import com.development.ads.domain.model.PropertyCharacteristics
+import com.development.ads.domain.model.PropertySpecs
 import com.development.ads.domain.model.PropertyType
 import kotlinx.serialization.Serializable
 
@@ -36,39 +36,30 @@ data class RemoteAdList(
 ) {
     fun toAdData(): AdData {
         return AdData(
-            propertyCode = propertyCode.toInt(),
+            adId = propertyCode.toInt(),
             thumbnail = thumbnail,
-            floor = floor.toInt(),
-            priceInEuros = price.toLong(),
-            propertyType = mapToPropertyType(propertyType),
-            operation = mapToOperationType(operation),
-            sizeInMeters = size.toLong(),
-            isExterior = exterior,
-            roomsNumber = rooms,
-            bathroomsNumber = bathrooms,
-            addressInfo = AdAddressInfo(
-                address = address,
-                province = province,
+            adSpecs = AdSpecs(
+                price = price.toLong(),
+                operation = mapToOperationType(operation)
+            ),
+            propertySpecs = PropertySpecs(
+                fullAddress = address,
                 municipality = municipality,
-                district = district,
                 country = country,
-                neighborhood = neighborhood,
                 latitude = latitude.toLong(),
-                longitude = longitude.toLong()
+                longitude = longitude.toLong(),
+                characteristics = PropertyCharacteristics(
+                    propertyType = mapToPropertyType(propertyType),
+                    hasAirConditioning = features.hasAirConditioning,
+                    hasBoxRoom = features.hasBoxRoom
+                )
             ),
-            description = description,
-            multimedia = AdMultimedia(
-                images = multimedia.images.map {
-                    AdImage(
-                        url = it.url,
-                        tag = mapToAdImageTag(it.tag)
-                    )
-                }
-            ),
-            features = AdFeatures(
-                hasAirConditioning = features.hasAirConditioning,
-                hasBoxRoom = features.hasBoxRoom
-            )
+            images = multimedia.images.map {
+                AdImage(
+                    url = it.url,
+                    tag = mapToAdImageTag(it.tag)
+                )
+            }
         )
     }
 

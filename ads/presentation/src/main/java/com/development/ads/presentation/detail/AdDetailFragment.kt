@@ -41,8 +41,7 @@ class AdDetailFragment : Fragment() {
         }
         viewModel.uiState.observe(viewLifecycleOwner, Observer { uiState ->
             if (uiState.adData != null) {
-                binding.toolbar.title = uiState.adData.addressInfo.address.capitalize()
-                val images = uiState.adData.multimedia.images.map { it.url }
+                val images = uiState.adData.images.map { it.url }
                 binding.viewPager.adapter = CarouselImageAdapter(images)
             }
         })

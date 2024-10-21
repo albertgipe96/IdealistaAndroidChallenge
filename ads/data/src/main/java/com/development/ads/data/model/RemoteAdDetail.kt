@@ -1,12 +1,12 @@
 package com.development.ads.data.model
 
-import com.development.ads.domain.model.AdAddressInfo
 import com.development.ads.domain.model.AdData
-import com.development.ads.domain.model.AdFeatures
 import com.development.ads.domain.model.AdImage
 import com.development.ads.domain.model.AdImageTag
-import com.development.ads.domain.model.AdMultimedia
+import com.development.ads.domain.model.AdSpecs
 import com.development.ads.domain.model.OperationType
+import com.development.ads.domain.model.PropertyCharacteristics
+import com.development.ads.domain.model.PropertySpecs
 import com.development.ads.domain.model.PropertyType
 import kotlinx.serialization.Serializable
 
@@ -14,9 +14,9 @@ import kotlinx.serialization.Serializable
 data class RemoteAdDetail(
     val adid: Int,
     val price: Double,
-    val operation: String, //OperationType
-    val propertyType: String, //PropertyType
-    val extendedPropertyType: String, //PropertyType
+    val operation: String,
+    val propertyType: String,
+    val extendedPropertyType: String,
     val multimedia: RemoteAdMultimedia,
     val propertyComment: String,
     val ubication: RemoteAdUbication,
@@ -24,39 +24,31 @@ data class RemoteAdDetail(
 ) {
     fun toAdData(): AdData {
         return AdData(
-            propertyCode = adid,
+            adId = adid,
             thumbnail = multimedia.images.first().url,
-            floor = moreCharacteristics.floor.toInt(),
-            priceInEuros = price.toLong(),
-            propertyType = mapToPropertyType(propertyType),
-            operation = mapToOperationType(operation),
-            sizeInMeters = 0,
-            isExterior = moreCharacteristics.exterior,
-            roomsNumber = moreCharacteristics.roomNumber,
-            bathroomsNumber = moreCharacteristics.bathNumber,
-            addressInfo = AdAddressInfo(
-                address = "",
-                province = "",
+            adSpecs = AdSpecs(
+                price = price.toLong(),
+                operation = mapToOperationType(operation)
+            ),
+            propertySpecs = PropertySpecs(
+                fullAddress = "",
                 municipality = "",
-                district = "",
                 country = "",
-                neighborhood = "",
                 latitude = ubication.latitude.toLong(),
-                longitude = ubication.longitude.toLong()
+                longitude = ubication.longitude.toLong(),
+                characteristics = PropertyCharacteristics(
+                    communityCosts = moreCharacteristics.communityCosts,
+                    roomNumber = moreCharacteristics.roomNumber,
+                    bathNumber = moreCharacteristics.bathNumber,
+                    exterior = moreCharacteristics.exterior
+                )
             ),
-            description = propertyComment,
-            multimedia = AdMultimedia(
-                images = multimedia.images.map {
-                    AdImage(
-                        url = it.url,
-                        tag = mapToAdImageTag(it.tag)
-                    )
-                }
-            ),
-            features = AdFeatures(
-                hasAirConditioning = false,
-                hasBoxRoom = false
-            )
+            images = multimedia.images.map {
+                AdImage(
+                    url = it.url,
+                    tag = mapToAdImageTag(it.tag)
+                )
+            }
         )
     }
 
