@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.development.ads.domain.AdsRepository
 import com.development.ads.domain.model.AdData
+import com.development.ads.domain.usecase.FetchAdDataDetailWithFavorite
 import com.development.core.domain.result.DataError
 import com.development.core.domain.result.Result
 import kotlinx.coroutines.Dispatchers
@@ -18,7 +19,7 @@ data class AdDetailUiState(
 )
 
 class AdDetailViewModel(
-    private val adsRepository: AdsRepository
+    private val fetchAdDataDetailWithFavorite: FetchAdDataDetailWithFavorite
 ) : ViewModel() {
 
     val uiState = MutableLiveData(AdDetailUiState())
@@ -29,7 +30,7 @@ class AdDetailViewModel(
 
     private fun fetchAdData() {
         viewModelScope.launch { withContext(Dispatchers.IO) {
-            when (val result = adsRepository.fetchAdDetail()) {
+            when (val result = fetchAdDataDetailWithFavorite()) {
                 is Result.Error -> uiState.postValue(AdDetailUiState(isLoading = false, error = result.error))
                 is Result.Success -> uiState.postValue(AdDetailUiState(isLoading = false, adData = result.data))
             }
