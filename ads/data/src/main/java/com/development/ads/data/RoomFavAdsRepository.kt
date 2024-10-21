@@ -13,6 +13,10 @@ class RoomFavAdsRepository(
     private val favAdsDao: FavAdsDao
 ) : FavAdsRepository {
 
+    override suspend fun getFavoritedInfoList(): List<FavoritedInfo> {
+        return favAdsDao.getFavAdsList().map { it.toFavoritedInfo() }
+    }
+
     override suspend fun getFavoritedInfo(id: Int): FavoritedInfo? {
         val favAds = favAdsDao.getFavAd(id)
         if (favAds.isNotEmpty()) return favAds.first().toFavoritedInfo()
@@ -39,6 +43,7 @@ class RoomFavAdsRepository(
 
     private fun FavAdEntity.toFavoritedInfo(): FavoritedInfo {
         return FavoritedInfo(
+            adId = adId,
             isFavorited = true,
             date = dateInMillis
         )

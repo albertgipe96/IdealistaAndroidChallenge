@@ -8,6 +8,9 @@ import com.development.ads.domain.model.OperationType
 import com.development.ads.domain.model.PropertyCharacteristics
 import com.development.ads.domain.model.PropertySpecs
 import com.development.ads.domain.model.PropertyType
+import com.development.ads.domain.model.mapToAdImageTag
+import com.development.ads.domain.model.mapToOperationType
+import com.development.ads.domain.model.mapToPropertyType
 import kotlinx.serialization.Serializable
 
 @Serializable
@@ -61,36 +64,6 @@ data class RemoteAdList(
                 )
             }
         )
-    }
-
-    private fun mapToPropertyType(value: String): PropertyType {
-        return when (value) {
-            "flat" -> PropertyType.FLAT
-            "house" -> PropertyType.HOUSE
-            "chalet" -> PropertyType.CHALET
-            else -> PropertyType.UNKNOWN
-        }
-    }
-
-    private fun mapToOperationType(value: String): OperationType {
-        return when (value) {
-            "sale" -> OperationType.SALE
-            "rent" -> OperationType.RENT
-            else -> OperationType.UNKNOWN
-        }
-    }
-
-    private fun mapToAdImageTag(value: String): AdImageTag {
-        return when (value) {
-            "livingRoom" -> AdImageTag.LIVING_ROOM
-            "views" -> AdImageTag.VIEWS
-            "facade" -> AdImageTag.FACADE
-            "corridor" -> AdImageTag.CORRIDOR
-            "bedroom" -> AdImageTag.BEDROOM
-            "kitchen" -> AdImageTag.KITCHEN
-            "bathroom" -> AdImageTag.BATHROOM
-            else -> AdImageTag.UNKNOWN
-        }
     }
 }
 

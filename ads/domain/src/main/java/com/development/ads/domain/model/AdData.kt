@@ -6,7 +6,7 @@ data class AdData(
     val adSpecs: AdSpecs,
     val propertySpecs: PropertySpecs,
     val images: List<AdImage>,
-    val favoritedInfo: FavoritedInfo = FavoritedInfo()
+    val favoritedInfo: FavoritedInfo = FavoritedInfo(adId)
 )
 
 data class AdSpecs(
@@ -39,6 +39,7 @@ data class AdImage(
 )
 
 data class FavoritedInfo(
+    val adId: Int,
     val isFavorited: Boolean = false,
     val date: Long? = null
 )
