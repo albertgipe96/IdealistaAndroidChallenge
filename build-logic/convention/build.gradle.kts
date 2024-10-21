@@ -30,5 +30,9 @@ gradlePlugin {
             id = "idealista.ktor"
             implementationClass = "KtorConventionPlugin"
         }
+        register("room") {
+            id = "idealista.room"
+            implementationClass = "RoomConventionPlugin"
+        }
     }
 }

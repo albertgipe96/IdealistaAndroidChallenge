@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.idealista.android.library)
     alias(libs.plugins.idealista.ktor)
+    alias(libs.plugins.idealista.room)
 }
 
 android {
