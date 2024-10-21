@@ -23,10 +23,11 @@ class RoomFavAdsRepository(
         return null
     }
 
-    override suspend fun saveAdToFavorites(id: Int): EmptyDataResult<DataError.Local> {
+    override suspend fun saveAdToFavorites(id: Int): Result<FavoritedInfo, DataError.Local> {
         return try {
-            favAdsDao.upsertFavAd(FavAdEntity(id, 0)) // TODO
-            Result.Success(Unit)
+            val dateInMillis = System.currentTimeMillis()
+            favAdsDao.upsertFavAd(FavAdEntity(id, dateInMillis))
+            Result.Success(FavoritedInfo(id, true, dateInMillis))
         } catch (e: SQLiteFullException) {
             Result.Error(DataError.Local.DISK_FULL)
         }

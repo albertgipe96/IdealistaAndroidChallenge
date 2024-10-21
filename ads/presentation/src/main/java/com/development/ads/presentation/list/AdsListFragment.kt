@@ -6,7 +6,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.replace
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.development.ads.domain.model.AdData
@@ -46,7 +45,7 @@ class AdsListFragment : Fragment() {
                         override fun onItemClick(item: AdData) {
                             if (savedInstanceState == null) {
                                 parentFragmentManager.beginTransaction()
-                                    .replace(id, AdDetailFragment.newInstance())
+                                    .replace(id, AdDetailFragment.newInstance(adId = item.adId, address = item.propertySpecs.fullAddress))
                                     .addToBackStack(null)
                                     .commit()
                             }

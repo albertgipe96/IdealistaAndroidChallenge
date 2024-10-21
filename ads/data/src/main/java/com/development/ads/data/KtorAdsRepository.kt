@@ -20,8 +20,8 @@ class KtorAdsRepository(
         ).map { it.map { it.toAdData() } }
     }
 
-    override suspend fun fetchAdDetail(): Result<AdData, DataError.Network> {
-        return httpClient.get<RemoteAdDetail>(
+    override suspend fun fetchAdDetail(id: Int): Result<AdData, DataError.Network> {
+        return httpClient.get<RemoteAdDetail>( // Id not used in example, always same response
             route = "detail.json"
         ).map { it.toAdData() }
     }

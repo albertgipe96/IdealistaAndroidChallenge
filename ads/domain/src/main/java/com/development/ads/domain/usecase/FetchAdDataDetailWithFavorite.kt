@@ -11,13 +11,13 @@ class FetchAdDataDetailWithFavorite(
     private val favAdsRepository: FavAdsRepository
 ) {
 
-    suspend operator fun invoke(): Result<AdData, DataError.Network> {
-        val result = adsRepository.fetchAdDetail()
+    suspend operator fun invoke(adId: Int): Result<AdData, DataError.Network> {
+        val result = adsRepository.fetchAdDetail(adId)
         when (result) {
             is Result.Error -> return result
             is Result.Success -> {
                 val adData = result.data
-                val favInfo = favAdsRepository.getFavoritedInfo(adData.adId)
+                val favInfo = favAdsRepository.getFavoritedInfo(adId)
                 return Result.Success(
                     favInfo?.let { adData.copy(favoritedInfo = favInfo) } ?: adData
                 )
