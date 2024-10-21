@@ -37,9 +37,12 @@ dependencies {
     implementation(libs.coil.compose)
 
     implementation(libs.androidx.viewpager2)
-    //implementation("com.google.android.material:material:1.5.0")
 
     testImplementation(libs.junit)
+    testImplementation("org.mockito:mockito-core:5.0.0")
+    testImplementation("org.mockito:mockito-inline:5.0.0")
+    testImplementation("org.mockito.kotlin:mockito-kotlin:5.1.0")
+    androidTestImplementation(projects.ads.domain)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
 }
