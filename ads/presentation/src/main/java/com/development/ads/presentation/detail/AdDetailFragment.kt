@@ -18,6 +18,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.Observer
+import com.development.ads.domain.util.DateTimeConverter
 import com.development.ui.databinding.FragmentAdDetailBinding
 import org.koin.androidx.viewmodel.ext.android.activityViewModel
 
@@ -70,7 +71,7 @@ class AdDetailFragment : Fragment() {
                     Column(
                         modifier = Modifier.fillMaxWidth()
                     ) {
-                        if (adData.favoritedInfo.isFavorited) {
+                        if (adData.favoritedInfo.isFavorited && adData.favoritedInfo.date != null) {
                             Row(
                                 modifier = Modifier
                                     .fillMaxWidth()
@@ -78,7 +79,7 @@ class AdDetailFragment : Fragment() {
                                     .padding(8.dp),
                                 horizontalArrangement = Arrangement.Center
                             ) {
-                                Text(text = "FAVORITED on: ${adData.favoritedInfo.date}", color = Color.White)
+                                Text(text = "FAVORITED on: ${DateTimeConverter.millisToDateString(adData.favoritedInfo.date!!, "dd/MM/yyyy hh:mm:ss")}", color = Color.White)
                             }
                         }
                         arguments?.getString(ADDRESS_ARG)?.let {
