@@ -66,7 +66,7 @@ fun AdCard(
             Column(modifier = Modifier.fillMaxWidth().padding(16.dp)) {
                 Text(
                     modifier = Modifier.fillMaxWidth(),
-                    text = "${adData.adSpecs.price}€",
+                    text = adData.adSpecs.priceInfo,
                     fontSize = 36.sp,
                     fontWeight = FontWeight.Bold,
                     textAlign = TextAlign.End

@@ -10,7 +10,7 @@ data class AdData(
 )
 
 data class AdSpecs(
-    val price: Long,
+    val priceInfo: String,
     val operation: OperationType
 )
 

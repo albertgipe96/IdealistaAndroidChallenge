@@ -15,7 +15,7 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class RemoteAdDetail(
     val adid: Int,
-    val price: Double,
+    val priceInfo: RemotePrice,
     val operation: String,
     val propertyType: String,
     val extendedPropertyType: String,
@@ -29,7 +29,7 @@ data class RemoteAdDetail(
             adId = adid,
             thumbnail = multimedia.images.first().url,
             adSpecs = AdSpecs(
-                price = price.toLong(),
+                priceInfo = priceInfo.let { "${it.amount.toLong()} ${it.currencySuffix}" },
                 operation = mapToOperationType(operation)
             ),
             propertySpecs = PropertySpecs(

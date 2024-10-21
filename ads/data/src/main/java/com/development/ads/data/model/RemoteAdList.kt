@@ -18,7 +18,7 @@ data class RemoteAdList(
     val propertyCode: String,
     val thumbnail: String,
     val floor: String,
-    val price: Double,
+    val priceInfo: RemotePriceInfo,
     val propertyType: String,
     val operation: String,
     val size: Double,
@@ -42,7 +42,7 @@ data class RemoteAdList(
             adId = propertyCode.toInt(),
             thumbnail = thumbnail,
             adSpecs = AdSpecs(
-                price = price.toLong(),
+                priceInfo = priceInfo.price.let { "${it.amount.toLong()} ${it.currencySuffix}" },
                 operation = mapToOperationType(operation)
             ),
             propertySpecs = PropertySpecs(
@@ -83,4 +83,15 @@ data class RemoteAdImage(
 data class RemoteAdFeatures(
     val hasAirConditioning: Boolean,
     val hasBoxRoom: Boolean
+)
+
+@Serializable
+data class RemotePriceInfo(
+    val price: RemotePrice
+)
+
+@Serializable
+data class RemotePrice(
+    val amount: Double,
+    val currencySuffix: String
 )

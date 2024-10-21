@@ -85,7 +85,7 @@ class AdDetailFragment : Fragment() {
                             Text(it)
                         }
                         Text("${adData.propertySpecs.municipality}, ${adData.propertySpecs.country}")
-                        Text("${adData.adSpecs.price}€")
+                        Text(adData.adSpecs.priceInfo)
                     }
                 }
                 binding.favoriteButton.apply {
