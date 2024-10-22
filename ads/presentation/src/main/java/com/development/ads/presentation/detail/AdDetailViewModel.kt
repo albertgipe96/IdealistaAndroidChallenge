@@ -11,6 +11,7 @@ import com.development.ads.domain.usecase.ToggleFavoriteAd
 import com.development.ads.presentation.detail.AdDetailFragment.Companion.AD_ID_ARG
 import com.development.core.domain.result.DataError
 import com.development.core.domain.result.Result
+import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -27,7 +28,8 @@ sealed interface AddDetailUserAction {
 
 class AdDetailViewModel(
     private val fetchAdDataDetailWithFavorite: FetchAdDataDetailWithFavorite,
-    private val toggleFavoriteAd: ToggleFavoriteAd
+    private val toggleFavoriteAd: ToggleFavoriteAd,
+    private val ioDispatcher: CoroutineDispatcher
 ) : ViewModel() {
 
     val uiState = MutableLiveData(AdDetailUiState())
@@ -39,7 +41,7 @@ class AdDetailViewModel(
     }
 
     private fun handleFavButtonClick(action: AddDetailUserAction.FavoriteButtonClick) {
-        viewModelScope.launch { withContext(Dispatchers.IO) {
+        viewModelScope.launch { withContext(ioDispatcher) {
             when (val result = toggleFavoriteAd(action.adId, action.isFavorited)) {
                 is Result.Error -> uiState.postValue(AdDetailUiState(error = result.error))
                 is Result.Success -> uiState.postValue(AdDetailUiState(adData = uiState.value?.adData?.copy(favoritedInfo = result.data)))
@@ -48,7 +50,7 @@ class AdDetailViewModel(
     }
 
     fun fetchAdData(adId: Int) {
-        viewModelScope.launch { withContext(Dispatchers.IO) {
+        viewModelScope.launch { withContext(ioDispatcher) {
             when (val result = fetchAdDataDetailWithFavorite(adId)) {
                 is Result.Error -> uiState.postValue(AdDetailUiState(isLoading = false, error = result.error))
                 is Result.Success -> uiState.postValue(AdDetailUiState(isLoading = false, adData = result.data))

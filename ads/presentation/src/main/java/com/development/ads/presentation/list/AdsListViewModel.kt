@@ -11,6 +11,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import com.development.core.domain.result.Result
+import kotlinx.coroutines.CoroutineDispatcher
 
 data class AdsListUiState(
     val isLoading: Boolean = false,
@@ -19,7 +20,8 @@ data class AdsListUiState(
 )
 
 class AdsListViewModel(
-    private val fetchAdDataListWithFavorites: FetchAdDataListWithFavorites
+    private val fetchAdDataListWithFavorites: FetchAdDataListWithFavorites,
+    private val ioDispatcher: CoroutineDispatcher
 ) : ViewModel() {
 
     val uiState = MutableLiveData(AdsListUiState())
@@ -29,7 +31,7 @@ class AdsListViewModel(
     }
 
     private fun fetchAdsList() {
-        viewModelScope.launch { withContext(Dispatchers.IO) {
+        viewModelScope.launch { withContext(ioDispatcher) {
             when (val result = fetchAdDataListWithFavorites()) {
                 is Result.Error -> uiState.postValue(AdsListUiState(isLoading = false, error = result.error))
                 is Result.Success -> uiState.postValue(AdsListUiState(isLoading = false, adDataList = result.data))

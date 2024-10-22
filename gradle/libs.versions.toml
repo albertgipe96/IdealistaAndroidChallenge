@@ -12,6 +12,9 @@ constraintlayout = "2.1.4"
 jetbrainsKotlinJvm = "1.9.22"
 androidTools = "31.2.2"
 ksp = "1.9.22-1.0.17"
+mockitoCore = "5.0.0"
+mockitoInline = "5.0.0"
+mockitoKotlin = "5.1.0"
 room = "2.6.1"
 desugar_jdk_libs = "2.0.4"
 coroutines = "1.8.0"
@@ -77,6 +80,9 @@ android-gradlePlugin = { group = "com.android.tools.build", name = "gradle", ver
 android-tools-common = { group = "com.android.tools", name = "common", version.ref = "androidTools" }
 kotlin-gradlePlugin = { group = "org.jetbrains.kotlin", name = "kotlin-gradle-plugin", version.ref = "kotlin" }
 ksp-gradlePlugin = { group = "com.google.devtools.ksp", name = "com.google.devtools.ksp.gradle.plugin", version.ref = "ksp" }
+mockito-core = { module = "org.mockito:mockito-core", version.ref = "mockitoCore" }
+mockito-inline = { module = "org.mockito:mockito-inline", version.ref = "mockitoInline" }
+mockito-kotlin = { module = "org.mockito.kotlin:mockito-kotlin", version.ref = "mockitoKotlin" }
 room-gradlePlugin = { group = "androidx.room", name = "room-gradle-plugin", version.ref = "room" }
 ktor-client-auth = { module = "io.ktor:ktor-client-auth", version.ref = "ktor" }
 ktor-client-cio = { module = "io.ktor:ktor-client-cio", version.ref = "ktor" }

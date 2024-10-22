@@ -39,9 +39,9 @@ dependencies {
     implementation(libs.androidx.viewpager2)
 
     testImplementation(libs.junit)
-    testImplementation("org.mockito:mockito-core:5.0.0")
-    testImplementation("org.mockito:mockito-inline:5.0.0")
-    testImplementation("org.mockito.kotlin:mockito-kotlin:5.1.0")
+    testImplementation(libs.mockito.core)
+    testImplementation(libs.mockito.inline)
+    testImplementation(libs.mockito.kotlin)
     androidTestImplementation(projects.ads.domain)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)

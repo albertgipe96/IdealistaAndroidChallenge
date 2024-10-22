@@ -5,8 +5,10 @@ import com.development.ads.domain.usecase.FetchAdDataListWithFavorites
 import com.development.ads.domain.usecase.ToggleFavoriteAd
 import com.development.ads.presentation.detail.AdDetailViewModel
 import com.development.ads.presentation.list.AdsListViewModel
+import kotlinx.coroutines.Dispatchers
 import org.koin.androidx.viewmodel.dsl.viewModelOf
 import org.koin.core.module.dsl.factoryOf
+import org.koin.core.qualifier.named
 import org.koin.dsl.module
 
 val adsPresentationModule = module {
@@ -15,4 +17,5 @@ val adsPresentationModule = module {
     factoryOf(::FetchAdDataListWithFavorites)
     factoryOf(::FetchAdDataDetailWithFavorite)
     factoryOf(::ToggleFavoriteAd)
+    single { Dispatchers.IO }
 }
