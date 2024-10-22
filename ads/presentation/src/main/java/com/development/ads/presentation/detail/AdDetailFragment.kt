@@ -16,9 +16,11 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Text
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.Observer
 import com.development.ads.domain.util.DateTimeConverter
+import com.development.ui.R
 import com.development.ui.databinding.FragmentAdDetailBinding
 import org.koin.androidx.viewmodel.ext.android.activityViewModel
 
@@ -79,7 +81,7 @@ class AdDetailFragment : Fragment() {
                                     .padding(8.dp),
                                 horizontalArrangement = Arrangement.Center
                             ) {
-                                Text(text = "FAVORITED on: ${DateTimeConverter.millisToDateString(adData.favoritedInfo.date!!, "dd/MM/yyyy hh:mm:ss")}", color = Color.White)
+                                Text(text = stringResource(R.string.favorited_on, DateTimeConverter.millisToDateString(adData.favoritedInfo.date!!, "dd/MM/yyyy hh:mm:ss")), color = Color.White)
                             }
                         }
                         arguments?.getString(ADDRESS_ARG)?.let {
@@ -90,7 +92,7 @@ class AdDetailFragment : Fragment() {
                     }
                 }
                 binding.favoriteButton.apply {
-                    text = if (!uiState.adData.favoritedInfo.isFavorited) "Add favorite" else "Remove favorite"
+                    text = if (!uiState.adData.favoritedInfo.isFavorited) getString(R.string.add_favorite_button_title) else getString(R.string.remove_favorite_button_title)
                     setOnClickListener {
                         viewModel.onAction(
                             AddDetailUserAction.FavoriteButtonClick(

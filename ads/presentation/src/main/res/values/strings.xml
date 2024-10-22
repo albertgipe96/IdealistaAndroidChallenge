@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="list_screen_toolbar_title">Idealista</string>
+    <string name="favorited_on">FAVORITED on: %s</string>
+    <string name="add_favorite_button_title">Add favorite</string>
+    <string name="remove_favorite_button_title">Remove favorite</string>
+</resources>
