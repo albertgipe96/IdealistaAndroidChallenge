@@ -11,13 +11,18 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Text
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.lifecycle.Observer
 import com.development.ads.domain.util.DateTimeConverter
 import com.development.ui.R
@@ -84,11 +89,68 @@ class AdDetailFragment : Fragment() {
                                 Text(text = stringResource(R.string.favorited_on, DateTimeConverter.millisToDateString(adData.favoritedInfo.date!!, "dd/MM/yyyy hh:mm:ss")), color = Color.White)
                             }
                         }
-                        arguments?.getString(ADDRESS_ARG)?.let {
-                            Text(it)
+                        Column(modifier = Modifier.fillMaxWidth().padding(horizontal = 16.dp)) {
+                            arguments?.getString(ADDRESS_ARG)?.let {
+                                Spacer(Modifier.height(16.dp))
+                                Text(
+                                    text = it,
+                                    fontSize = 20.sp,
+                                    fontWeight = FontWeight.SemiBold
+                                )
+                            }
+                            Spacer(Modifier.height(16.dp))
+                            Text(
+                                text = adData.adSpecs.priceInfo,
+                                fontSize = 24.sp,
+                                fontWeight = FontWeight.Bold
+                            )
+                            Spacer(Modifier.height(16.dp))
+                            adData.propertySpecs.characteristics.apply {
+                                Column(
+                                    modifier = Modifier.fillMaxWidth(),
+                                    verticalArrangement = Arrangement.spacedBy(2.dp)
+                                ) {
+                                    val booleanCharacteristics = mapOf(
+                                        hasAirConditioning to R.string.property_has_air_conditioning,
+                                        hasBoxRoom to R.string.property_has_box_room,
+                                        exterior to R.string.property_is_exterior
+                                    )
+                                    booleanCharacteristics.filter { it.key == true }.values.forEach {
+                                        Text(
+                                            modifier = Modifier
+                                                .background(Color.Green.copy(alpha = 0.3F), RoundedCornerShape(6.dp))
+                                                .padding(vertical = 2.dp, horizontal = 6.dp),
+                                            text = stringResource(it)
+                                        )
+                                    }
+                                    communityCosts?.let {
+                                        Text(
+                                            modifier = Modifier
+                                                .background(Color.Green.copy(alpha = 0.3F), RoundedCornerShape(6.dp))
+                                                .padding(vertical = 2.dp, horizontal = 6.dp),
+                                            text = stringResource(R.string.property_community_costs, it.toString())
+                                        )
+                                    }
+                                    roomNumber?.let {
+                                        Text(
+                                            modifier = Modifier
+                                                .background(Color.Green.copy(alpha = 0.3F), RoundedCornerShape(6.dp))
+                                                .padding(vertical = 2.dp, horizontal = 6.dp),
+                                            text = stringResource(R.string.property_room_number, it.toString())
+                                        )
+                                    }
+                                    bathNumber?.let {
+                                        Text(
+                                            modifier = Modifier
+                                                .background(Color.Green.copy(alpha = 0.3F), RoundedCornerShape(6.dp))
+                                                .padding(vertical = 2.dp, horizontal = 6.dp),
+                                            text = stringResource(R.string.property_bath_number, it.toString())
+                                        )
+                                    }
+                                }
+                            }
                         }
-                        Text("${adData.propertySpecs.municipality}, ${adData.propertySpecs.country}")
-                        Text(adData.adSpecs.priceInfo)
+
                     }
                 }
                 binding.favoriteButton.apply {
@@ -104,6 +166,5 @@ class AdDetailFragment : Fragment() {
                 }
             }
         })
-
     }
 }

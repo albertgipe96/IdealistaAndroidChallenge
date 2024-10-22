@@ -4,4 +4,10 @@
     <string name="favorited_on">FAVORITED on: %s</string>
     <string name="add_favorite_button_title">Add favorite</string>
     <string name="remove_favorite_button_title">Remove favorite</string>
+    <string name="property_has_air_conditioning">Air conditioning</string>
+    <string name="property_has_box_room">Box room</string>
+    <string name="property_is_exterior">Is exterior</string>
+    <string name="property_room_number">Rooms: %s</string>
+    <string name="property_bath_number">Baths: %s</string>
+    <string name="property_community_costs">Community costs: %s €</string>
 </resources>
